@@ -4,8 +4,7 @@ const useAuth = () => {
   const [isLogin, setIsLogin] = useState(false);
   const isRun = useRef(false);
   useEffect(() => {
-    // Prevent multiple calls to Keycloak
-    if(isRun.current) return;
+    if (isRun.current) return;
     isRun.current = true;
 
     const keycloak = new Keycloak({
@@ -13,12 +12,15 @@ const useAuth = () => {
       realm: import.meta.env.VITE_KEYCLOAK_REALM,
       clientId: import.meta.env.VITE_KEYCLOAK_CLIENT,
     });
-    keycloak.init({
-      onLoad: "login-required",
-    }).then((res) => setIsLogin(res));
+
+    keycloak
+      .init({
+        onLoad: "login-required",
+      })
+      .then((res) => setIsLogin(res));
   }, []);
 
-  return isLogin;
+  return { isLogin };
 };
 
 export default useAuth;

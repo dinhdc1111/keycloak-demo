@@ -4,7 +4,7 @@ import Protected from "./components/Protected";
 import Public from "./components/Public";
 
 const App = () => {
-  const isLogin = useAuth();
+  const { isLogin } = useAuth();
   return isLogin ? <Protected /> : <Public />;
 };
 
