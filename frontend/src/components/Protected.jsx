@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const Protected = () => {
+const Protected = ({ token }) => {
   const [fruits, setFruits] = useState([]);
   useEffect(() => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
     const fetchData = async () => {
-      const data = await axios.get(`http://localhost:5000/documents`).then((res) => {
-        return res.data;
+      await axios.get(`http://localhost:5000/documents`, config).then((res) => {
+        setFruits(res.data);
       });
-      setFruits(data);
     };
     fetchData();
   }, []);

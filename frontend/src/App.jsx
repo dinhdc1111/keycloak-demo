@@ -4,8 +4,8 @@ import Protected from "./components/Protected";
 import Public from "./components/Public";
 
 const App = () => {
-  const { isLogin } = useAuth();
-  return isLogin ? <Protected /> : <Public />;
+  const { isLogin, token } = useAuth();
+  return isLogin ? <Protected token={token} /> : <Public />;
 };
 
 export default App;
